@@ -32,7 +32,7 @@ const App = () => {
 
   return (
     <NavigationContainer linking={linking}>
-      <StackNavigator.Navigator initialRouteName="Home" backBehavior="history">
+      <StackNavigator.Navigator initialRouteName="Home" backBehavior="Home">
 
         <StackNavigator.Screen name='Home' options={{ headerShown: false }}>
           {props => <HomeScreen

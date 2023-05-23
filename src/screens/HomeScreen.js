@@ -5,7 +5,7 @@ import NfcManager from 'react-native-nfc-manager';
 const HomeScreen = ({ navigation, isNfcSupported, isNfcEnable, setIsNfcSupported }) => {
 
     return (
-        isNfcEnable && isNfcSupported ?
+        (isNfcEnable && isNfcSupported) ?
             <View style={styles.view}>
                 <Text style={styles.title}>NFC-Manager Home</Text>
                 <View style={styles.options}>

@@ -15,4 +15,4 @@ Personal Hackaton: React native application NFC reading and writing
 ## List of sources
 - Icon App: https://www.flaticon.com/free-icon/mobile-pay_5227628?term=nfc&page=1&position=27&origin=search&related_id=5227628
 - React native NFC Manager: https://www.npmjs.com/package/react-native-nfc-manager
-- React native navigation: @react-navigation/native
+- React native navigation: https://www.npmjs.com/package/@react-navigation/native
