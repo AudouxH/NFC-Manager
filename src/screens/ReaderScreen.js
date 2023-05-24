@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import NfcManager, { NfcTech, Ndef } from 'react-native-nfc-manager';
-
-NfcManager.start();
+import { Ndef } from 'react-native-nfc-manager';
+import readNfcTag from '../components/ReadNFCTag';
 
 const ReaderScreen = ({ isNfcSupported, isNfcEnable }) => {
     const [isScanned, setIsScanned] = useState(false);
@@ -10,63 +9,37 @@ const ReaderScreen = ({ isNfcSupported, isNfcEnable }) => {
     const [nfcID, setNfcID] = useState("");
     const [isWritable, setIsWritable] = useState(false);
     const [maxSize, setMaxSize] = useState(0);
-    const [ndefMessage, setNdefMessage] = useState(null);
     const [NFCtype, setNFCType] = useState("");
     const [techTypes, setTechTypes] = useState([]);
     const [textData, setTextData] = useState("");
     const [uriData, setUriData] = useState("");
 
     useEffect(() => {
-        const readNfcTag = async () => {
-            try {
+        const lunchNFCReading = async () => {
+            if (isNfcSupported && isNfcEnable) {
                 setIsScanned(false);
-                await NfcManager.requestTechnology(NfcTech.Ndef);
-                const { canMakeReadOnly, id, isWritable, maxSize, ndefMessage, type, techTypes } = await NfcManager.getTag();
+                const { canMakeReadOnly, id, isWritable, maxSize, ndefMessage, type, techTypes } = await readNfcTag();
 
                 canMakeReadOnly && setCanMakeReadOnly(canMakeReadOnly);
                 id && setNfcID(id);
                 isWritable && setIsWritable(isWritable);
                 maxSize && setMaxSize(maxSize);
-                ndefMessage && setNdefMessage(ndefMessage);
                 type && setNFCType(type);
                 techTypes && setTechTypes(techTypes);
-            } catch (ex) {
-                console.warn('Oops!', ex);
-            } finally {
-                await NfcManager.cancelTechnologyRequest();
+                ndefMessage && ndefMessage.map((message) => {
+                    const { payload } = message;
+
+                    if (message.type[0] === 85) {
+                        setUriData(Ndef.uri.decodePayload(payload));
+                    } else if (message.type[0] === 84) {
+                        setTextData(Ndef.text.decodePayload(payload));
+                    }
+                });
                 setIsScanned(true);
             }
         }
-
-        if (isNfcSupported && isNfcEnable) {
-            readNfcTag();
-        }
-    }, [isNfcSupported, isNfcEnable])
-
-    useEffect(() => {
-        if (ndefMessage != null) {
-            ndefMessage && ndefMessage.map((message, index) => {
-                const { payload } = message;
-
-                if (message.type[0] === 85) {
-                    setUriData(Ndef.uri.decodePayload(payload));
-                } else if (message.type[0] === 84) {
-                    setTextData(Ndef.text.decodePayload(payload));
-                }
-            });
-        }
-    }, [ndefMessage]);
-
-    // useEffect(() => {
-    //     const testNewFunctionNFCManager = async () => {
-    //         // await NfcManager.ndefHandler.makeReadOnly();
-    //         // await NfcManager.clearBackgroundTag();
-    //     }
-
-    //     if (isNfcSupported && isNfcEnable) {
-    //         testNewFunctionNFCManager();
-    //     }
-    // }, []);
+        lunchNFCReading();
+    }, [isNfcSupported, isNfcEnable]);
 
     return (
         <View style={styles.view}>

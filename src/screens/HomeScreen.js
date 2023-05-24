@@ -2,33 +2,39 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import NfcManager from 'react-native-nfc-manager';
 
-const HomeScreen = ({ navigation, isNfcSupported, isNfcEnable, setIsNfcSupported }) => {
+const HomeScreen = ({ navigation, isNfcEnable, isNfcSupported, setIsNfcSupported }) => {
+    isNfcSupported ? NfcManager.start() : null;
 
     return (
-        (isNfcEnable && isNfcSupported) ?
+        isNfcSupported ?
             <View style={styles.view}>
                 <Text style={styles.title}>NFC-Manager Home</Text>
                 <View style={styles.options}>
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Reader')}>
+                    <TouchableOpacity style={styles.button} onPress={() => {
+                        isNfcEnable ? navigation.navigate('Reader') : setIsNfcSupported(false);
+                    }}>
                         <Text style={styles.text}>Read a NFC Tag</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Writer')}>
+                    <TouchableOpacity style={styles.button} onPress={() => {
+                        isNfcEnable ? navigation.navigate('Writer') : setIsNfcSupported(false);
+                    }}>
                         <Text style={styles.text}>Write on a NFC Tag</Text>
                     </TouchableOpacity>
+
+                    {!isNfcEnable ?
+                        <TouchableOpacity style={styles.button} onPress={async () => {
+                            NfcManager.goToNfcSetting();
+                        }}>
+                            <Text style={styles.text}>Go to NFC settings</Text>
+                        </TouchableOpacity>
+                        : null
+                    }
                 </View>
             </View>
             :
             <View style={styles.view}>
-                <Text style={styles.title}>Please enable NFC</Text>
-                <View style={styles.options}>
-                    <TouchableOpacity style={styles.button} onPress={() => NfcManager.goToNfcSetting()}>
-                        <Text style={styles.text}>Go to settings</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={() => setIsNfcSupported(false)}>
-                        <Text style={styles.text}>Reload</Text>
-                    </TouchableOpacity>
-                </View>
+                <Text style={styles.title}>Your phone doesn't support NFC</Text>
             </View>
     )
 }

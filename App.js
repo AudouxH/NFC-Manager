@@ -38,8 +38,8 @@ const App = () => {
           {props => <HomeScreen
             {...props}
             isNfcSupported={isNfcSupported}
-            setIsNfcSupported={setIsNfcSupported}
             isNfcEnable={isNfcEnable}
+            setIsNfcSupported={setIsNfcSupported}
           />}
         </StackNavigator.Screen>
 
