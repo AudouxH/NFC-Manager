@@ -6,11 +6,11 @@ Personal Hackaton: React native application NFC reading and writing
 - Writing on a NFC Tag and personalise it at maximum
 - Improve NFC Tag security
 
-## Getting start
-- Clone the repository
-- Install packages -> npm install || yarn install
-- Start the packager -> npm start || yarn start
-- Start the react native application -> yarn android
+## Getting start with the project:
+- [ ] Clone the repository `git clone git@github.com:AudouxH/first_practical_project.git`
+- [ ] Install all necesary packages `npm install` || `yarn install`
+- [ ] Run the package manager `npm start` || `yarn start`
+- [ ] Start the react native application `yarn android` || `yarn ios`
 
 ## List of sources
 
