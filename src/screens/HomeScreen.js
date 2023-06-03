@@ -1,6 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import NfcManager from 'react-native-nfc-manager';
+import setting from '../assets/Setting.png';
+import logo from '../assets/logo.png';
 
 const HomeScreen = ({ navigation, isNfcEnable, isNfcSupported, setIsNfcSupported }) => {
     isNfcSupported ? NfcManager.start() : null;
@@ -8,27 +10,40 @@ const HomeScreen = ({ navigation, isNfcEnable, isNfcSupported, setIsNfcSupported
     return (
         isNfcSupported ?
             <View style={styles.view}>
-                <Text style={styles.title}>NFC-Manager Home</Text>
+                <View style={styles.title_container}>
+                    <Image source={logo} alt='' style={styles.title_image} />
+                    <Text style={styles.title}>NFC-Manager</Text>
+                </View>
                 <View style={styles.options}>
-                    <TouchableOpacity style={styles.button} onPress={() => {
-                        isNfcEnable ? navigation.navigate('Reader') : setIsNfcSupported(false);
-                    }}>
-                        <Text style={styles.text}>Read a NFC Tag</Text>
-                    </TouchableOpacity>
+                    {isNfcEnable ?
+                        <>
+                            <TouchableOpacity style={styles.button} onPress={() => {
+                                isNfcEnable ? navigation.navigate('Reader') : null;
+                            }}>
+                                <Text style={styles.text}>Read a NFC Tag</Text>
+                            </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.button} onPress={() => {
-                        isNfcEnable ? navigation.navigate('Writer') : setIsNfcSupported(false);
-                    }}>
-                        <Text style={styles.text}>Write on a NFC Tag</Text>
-                    </TouchableOpacity>
-
-                    {!isNfcEnable ?
-                        <TouchableOpacity style={styles.button} onPress={async () => {
-                            NfcManager.goToNfcSetting();
-                        }}>
-                            <Text style={styles.text}>Go to NFC settings</Text>
-                        </TouchableOpacity>
-                        : null
+                            <TouchableOpacity style={styles.button} onPress={() => {
+                                isNfcEnable ? navigation.navigate('Writer') : null;
+                            }}>
+                                <Text style={styles.text}>Write on a NFC Tag</Text>
+                            </TouchableOpacity>
+                        </>
+                        :
+                        <>
+                            <Text style={styles.description}>NFC technology is not enable on your phone. Please go to your NFC phone setting to activate it.</Text>
+                            <TouchableOpacity style={styles.button} onPress={async () => {
+                                NfcManager.goToNfcSetting();
+                            }}>
+                                <Image source={setting} alt='' style={styles.button_image} />
+                                <Text style={styles.text}>Go to NFC settings</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.button} onPress={async () => {
+                                setIsNfcSupported(false);
+                            }}>
+                                <Text style={styles.text}>Reload</Text>
+                            </TouchableOpacity>
+                        </>
                     }
                 </View>
             </View>
@@ -45,36 +60,64 @@ const styles = StyleSheet.create({
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-around',
+        justifyContent: 'flex-start',
         alignItems: 'center',
+        backgroundColor: '#FFF'
     },
     button: {
         width: '80%',
         height: 50,
         backgroundColor: '#000',
         display: 'flex',
+        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 12,
+        marginVertical: 10,
     },
     text: {
         color: '#fff',
         fontSize: 20,
     },
-    title: {
+    title_container: {
         width: '100%',
+        height: '20%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    title: {
         fontSize: 30,
         color: '#000',
         textAlign: 'center',
+        fontWeight: '700',
+    },
+    title_image: {
+        width: 50,
+        height: 50,
+        marginRight: 10
+    },
+    description: {
+        color: '#000',
+        fontSize: 20,
+        textAlign: 'center',
+        marginBottom: 10,
+        width: '90%',
     },
     options: {
         width: '100%',
-        height: 200,
+        height: '80%',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'space-around',
+        justifyContent: 'center',
         alignItems: 'center',
     },
+    button_image: {
+        width: 30,
+        height: 30,
+        marginRight: 10
+    }
 });
 
 export default HomeScreen;

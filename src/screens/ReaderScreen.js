@@ -28,6 +28,7 @@ const ReaderScreen = ({ isNfcSupported, isNfcEnable }) => {
                 techTypes && setTechTypes(techTypes);
                 ndefMessage && ndefMessage.map((message) => {
                     const { payload } = message;
+                    console.log("message type:", message.type[0]);
 
                     if (message.type[0] === 85) {
                         setUriData(Ndef.uri.decodePayload(payload));
