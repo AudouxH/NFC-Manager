@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { Ndef } from 'react-native-nfc-manager';
 import readNfcTag from '../components/ReadNFCTag';
 
-const ReaderScreen = ({ isNfcSupported, isNfcEnable }) => {
+const ReaderScreen = ({ isNfcEnable }) => {
     const [isScanned, setIsScanned] = useState(false);
     const [canMakeReadOnly, setCanMakeReadOnly] = useState(false);
     const [nfcID, setNfcID] = useState("");
@@ -16,7 +16,7 @@ const ReaderScreen = ({ isNfcSupported, isNfcEnable }) => {
 
     useEffect(() => {
         const lunchNFCReading = async () => {
-            if (isNfcSupported && isNfcEnable) {
+            if (isNfcEnable) {
                 setIsScanned(false);
                 const { canMakeReadOnly, id, isWritable, maxSize, ndefMessage, type, techTypes } = await readNfcTag();
 
@@ -40,11 +40,11 @@ const ReaderScreen = ({ isNfcSupported, isNfcEnable }) => {
             }
         }
         lunchNFCReading();
-    }, [isNfcSupported, isNfcEnable]);
+    }, [isNfcEnable]);
 
     return (
         <View style={styles.view}>
-            {(isNfcSupported && isNfcEnable) ?
+            {isNfcEnable ?
                 isScanned ?
                     <View>
                         <Text>canMakeReadOnly: {canMakeReadOnly ? "true" : "false"}</Text>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import writeOnNfcTag from '../components/WriteNFCTag';
 
-const WriterScreen = ({ isNfcSupported, isNfcEnable }) => {
+const WriterScreen = ({ isNfcEnable }) => {
     const [isWrote, setIsWrote] = useState(false);
 
     useEffect(() => {
@@ -11,14 +11,14 @@ const WriterScreen = ({ isNfcSupported, isNfcEnable }) => {
             await writeOnNfcTag();
             setIsWrote(true);
         }
-        if (isNfcSupported && isNfcEnable) {
+        if (isNfcEnable) {
             lunchNFCWriting();
         }
-    }, [isNfcSupported, isNfcEnable])
+    }, [isNfcEnable])
 
     return (
         <View style={styles.view}>
-            {(isNfcSupported && isNfcEnable) ?
+            {isNfcEnable ?
                 isWrote ?
                     <View>
                         <Text>Tag write success</Text>

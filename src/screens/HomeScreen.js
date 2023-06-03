@@ -17,16 +17,30 @@ const HomeScreen = ({ navigation, isNfcEnable, isNfcSupported, setIsNfcSupported
                 <View style={styles.options}>
                     {isNfcEnable ?
                         <>
+                            <Text>Read, Write, Copy and Erase your NFC Tag using NFC Manager.</Text>
+                            <Text>Secure and easy to use !</Text>
                             <TouchableOpacity style={styles.button} onPress={() => {
                                 isNfcEnable ? navigation.navigate('Reader') : null;
                             }}>
-                                <Text style={styles.text}>Read a NFC Tag</Text>
+                                <Text style={styles.text}>Read</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity style={styles.button} onPress={() => {
                                 isNfcEnable ? navigation.navigate('Writer') : null;
                             }}>
-                                <Text style={styles.text}>Write on a NFC Tag</Text>
+                                <Text style={styles.text}>Write</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={styles.button} onPress={() => {
+                                isNfcEnable ? navigation.navigate('Copy') : null;
+                            }}>
+                                <Text style={styles.text}>Copy</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={styles.button} onPress={() => {
+                                isNfcEnable ? navigation.navigate('Erase') : null;
+                            }}>
+                                <Text style={styles.text}>Erase</Text>
                             </TouchableOpacity>
                         </>
                         :
@@ -81,7 +95,7 @@ const styles = StyleSheet.create({
     },
     title_container: {
         width: '100%',
-        height: '20%',
+        height: '12%',
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'center',
@@ -107,7 +121,7 @@ const styles = StyleSheet.create({
     },
     options: {
         width: '100%',
-        height: '80%',
+        height: '88%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',

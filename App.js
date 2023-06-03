@@ -7,6 +7,8 @@ import NfcManager from 'react-native-nfc-manager';
 import HomeScreen from './src/screens/HomeScreen';
 import ReaderScreen from './src/screens/ReaderScreen';
 import WriterScreen from './src/screens/WriterScreen';
+import CopyScreen from './src/screens/CopyScreen';
+import EraseScreen from './src/screens/EraseScreen';
 
 const StackNavigator = createNativeStackNavigator();
 
@@ -46,7 +48,6 @@ const App = () => {
         <StackNavigator.Screen name='Reader' options={{ headerShown: false }}>
           {props => <ReaderScreen
             {...props}
-            isNfcSupported={isNfcSupported}
             isNfcEnable={isNfcEnable}
           />}
         </StackNavigator.Screen>
@@ -54,7 +55,20 @@ const App = () => {
         <StackNavigator.Screen name='Writer' options={{ headerShown: false }}>
           {props => <WriterScreen
             {...props}
-            isNfcSupported={isNfcSupported}
+            isNfcEnable={isNfcEnable}
+          />}
+        </StackNavigator.Screen>
+
+        <StackNavigator.Screen name='Copy' options={{ headerShown: false }}>
+          {props => <CopyScreen
+            {...props}
+            isNfcEnable={isNfcEnable}
+          />}
+        </StackNavigator.Screen>
+
+        <StackNavigator.Screen name='Erase' options={{ headerShown: false }}>
+          {props => <EraseScreen
+            {...props}
             isNfcEnable={isNfcEnable}
           />}
         </StackNavigator.Screen>
