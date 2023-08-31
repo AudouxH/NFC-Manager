@@ -5,7 +5,17 @@ Personal Hackathon: React Native Application for NFC Reading and Writing
 ## List of Functionalities
 - Reading an NFC Tag to retrieve comprehensive information.
 - Writing on an NFC Tag for maximum personalization.
-- Enhancing the security of NFC Tags.
+- Enhancing the security of NFC Tags by setting a password and implementing password requirements.
+
+## NFC Security Implementation
+
+In this project, I've harnessed the power of the `react-native-nfc-manager` package to take NFC tag security to the next level. Specifically, I've focused on NTAG 215 memory tags and the process of securing them:
+
+### Setting a Password
+By utilizing the capabilities of the `react-native-nfc-manager` package, I've successfully integrated a mechanism to set a password on NTAG 215 memory tags. This added layer of security ensures that only authorized individuals can access and modify the data stored on the tag.
+
+### Password Requirements
+To further strengthen the security measures, I've implemented password requirements before allowing any writing operation on the NTAG 215 tag. This ensures that only users who meet the specific password criteria can make modifications, preventing unauthorized or accidental changes.
 
 ## Getting Started with the Project
 - [ ] Clone the repository: `git clone git@github.com:AudouxH/first_practical_project.git`
