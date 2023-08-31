@@ -18,7 +18,7 @@ By utilizing the capabilities of the `react-native-nfc-manager` package, I've su
 To further strengthen the security measures, I've implemented password requirements before allowing any writing operation on the NTAG 215 tag. This ensures that only users who meet the specific password criteria can make modifications, preventing unauthorized or accidental changes.
 
 ## Getting Started with the Project
-- [ ] Clone the repository: `git clone [git@github.com:AudouxH/NFC-Manager.git](https://github.com/AudouxH/NFC-Manager.git)`
+- [ ] Clone the repository: `git clone https://github.com/AudouxH/NFC-Manager.git`
 - [ ] Install all necessary packages: `npm install` || `yarn install`
 - [ ] Run the package manager: `npm start` || `yarn start`
 - [ ] Launch the React Native application: `yarn android` || `yarn ios`
